@@ -52,13 +52,25 @@ const runSolver = async (difficulty, prefix) => {
 
 // Функция для отправки результата PoW на сервер
 const sendResult = async (result, redirect) => {
+  const fingerprint = {
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    languages: navigator.languages,
+    webdriver: navigator.webdriver,
+    plugins: [...navigator.plugins].map(p => p.name),
+    screen: {
+      width: screen.width,
+      height: screen.height,
+      colorDepth: screen.colorDepth
+    }
+  };
   try {
     const response = await fetch("/shield", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ ...result, redirect })
+      body: JSON.stringify({ ...result, redirect , fingerprint})
     });
     window.responseStatus = response.status;
     window.nonceSent = true;

@@ -53,7 +53,7 @@ const runSolver = async (difficulty, prefix) => {
 // Функция для отправки результата PoW на сервер
 const sendResult = async (result, redirect) => {
   try {
-    const response = await fetch("/pow", {
+    const response = await fetch("/shield", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
